@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Download Processed Files</title>
+</head>
+<body>
+    <h1>Download Processed Files</h1>
+    <ul>
+        {% for file in processed_files %}
+        <li>
+            <a href="{% url 'downloaded' file.id %}">{{ file.file1.name }}</a> (Enter ID 1: {{ file.enter_id1 }})
+            <br>
+            <a href="{% url 'downloaded' file.id %}">{{ file.file2.name }}</a> (Enter ID 2: {{ file.enter_id2 }})
+        </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

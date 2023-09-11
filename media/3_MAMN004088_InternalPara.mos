@@ -1,0 +1,6 @@
+
+cmedit set SubNetwork=ONRM_ROOT_MO,MeContext=MAMN004088,ManagedElement=MAMN004088,GNBCUCPFunction=1,UeCC=1,Rrc=1 t310NbIot:8000
+cmedit set SubNetwork=ONRM_ROOT_MO,MeContext=MAMN004088,ManagedElement=MAMN004088,GNBDUFunction=1,Rrc=1 t310NbIot:8000
+cmedit set SubNetwork=ONRM_ROOT_MO,MeContext=MAMN004088,ManagedElement=MAMN004088,GNBCUCPFunction=1,UeCC=1,Rrc=1 tRrcconnectionsetup:6
+cmedit set SubNetwork=ONRM_ROOT_MO,MeContext=MAMN004088,ManagedElement=MAMN004088,GNBDUFunction=1,Rrc=1 tRrcconnectionsetup:6
+

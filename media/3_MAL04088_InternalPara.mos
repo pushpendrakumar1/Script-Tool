@@ -1,0 +1,11 @@
+
+
+
+
+cmedit create SubNetwork=ONRM_ROOT_MO,MeContext=MAL04088,ManagedElement=MAL04088, ENodeBFunction=1,EUtranCellFDD=MAL04088_3B_1,UeMeasControl=1 endcMeasTime:2000
+cmedit create SubNetwork=ONRM_ROOT_MO,MeContext=MAL04088,ManagedElement=MAL04088, ENodeBFunction=1,EUtranCellFDD=MAL04088_3C_1,UeMeasControl=1 endcMeasTime:2000
+cmedit create SubNetwork=ONRM_ROOT_MO,MeContext=MAL04088,ManagedElement=MAL04088, ENodeBFunction=1,EUtranCellFDD=MAL04088_7A_1,UeMeasControl=1 endcMeasTime:2000
+crn1x ENodeBFunction=1,EUtranCellFDD=MAL04088_7B_1,UeMeasControl=1 endcMeasTime:2000
+crn1x ENodeBFunction=1,EUtranCellFDD=MAL04088_7C_1,UeMeasControl=1 endcMeasTime:2000
+
+
