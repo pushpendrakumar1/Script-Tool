@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>PDf TO CIQ</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+    <!-- Google font-->
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu:400,500,700" rel="stylesheet">
+
+    <!-- simple line icon -->
+    <link rel="stylesheet" type="text/css" href="assets/icon/simple-line-icons/css/simple-line-icons.css">
+    <!-- Required Fremwork -->
+    <link rel="stylesheet" type="text/css" href="assets/plugins/bootstrap/css/bootstrap.min.css">
+    <!-- Style.css -->
+    <link rel="stylesheet" type="text/css" href="assets/css/main.css">
+    <!-- Responsive.css-->
+    <link rel="stylesheet" type="text/css" href="assets/css/responsive.css">
+    <link rel="stylesheet" type="text/css"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css" rel="stylesheet">
+
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+
+
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.4/Chart.bundle.min.js'></script>
+    <link
+    href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Alkatra:wght@500;700&family=Braah+One&family=Kaushan+Script&family=Lilita+One&display=swap"
+    rel="stylesheet">
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.2/min/dropzone.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.2/min/dropzone.min.js"></script>
+
+
+
+
+    <style>
+
+        .row{
+            color: black;
+            font-size: 16px;
+            font-weight: 500;
+
+        }
+        .midbox {
+            height: 350px !important;
+        }
+
+        .navbar {
+
+            background-color: white;
+
+
+        }
+
+        .col-lg-1 {
+            padding-top: 0px;
+
+        }
+
+
+        .nav-link.active {
+
+            background-color: #51E2F5;
+
+        }
+
+        .nav-link:hover {
+
+            background-color: #51E2F5;
+
+
+        }
+
+        body {
+            background-color: #f9f9fa
+        }
+
+        .tog {
+            /* overflow: hidden; */
+            height: inherit;
+            margin: 10px 1000px 15px -890px;
+        }
+
+
+        @media (max-width:991.98px) {
+            .padding {
+                padding: 1.5rem
+            }
+
+
+        }
+
+        @media (max-width:767.98px) {
+            .padding {
+                padding: 1rem
+            }
+        }
+
+        @media (min-width: 992px) {
+            .col-lg-11 {
+                flex: 0 0 auto;
+                width: 90%;
+            }
+        }
+
+        @media only screen and (max-width: 1300px) {
+
+            .col-lg-1 {
+                padding-top: 82px;
+                display: none !important;
+            }
+
+            .btn2 {
+                /* margin: 10px 364px 15px -890px; */
+                visibility: visible !important;
+            }
+
+            .col-10 {
+                width: 130px !important;
+            }
+
+            .tog {
+                display: none;
+            }
+
+        }
+
+        @media only screen and (max-width: 1600px) {
+            .nav-link.active {
+                width: 120px;
+            }
+
+            .nav-link:hover {
+                width: 120px;
+            }
+
+
+
+        }
+
+        .btn2 {
+            visibility: hidden;
+        }
+
+        .padding {
+            padding: 5rem
+        }
+
+        .card {
+            background: #fff;
+            border-width: 0;
+            border-radius: .25rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, .05);
+            margin-bottom: 1.5rem
+        }
+
+        .card {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+            word-wrap: break-word;
+            background-color: #fff;
+            background-clip: border-box;
+            border: 1px solid rgba(19, 24, 44, .125);
+            border-radius: .25rem
+        }
+
+        .card-header {
+            padding: .75rem 1.25rem;
+            margin-bottom: 0;
+            background-color: rgba(19, 24, 44, .03);
+            border-bottom: 1px solid rgba(19, 24, 44, .125)
+        }
+
+        .card-header:first-child {
+            border-radius: calc(.25rem - 1px) calc(.25rem - 1px) 0 0
+        }
+
+        card-footer,
+        .card-header {
+            background-color: transparent;
+            border-color: rgba(160, 175, 185, .15);
+            background-clip: padding-box
+        }
+
+        .log {
+            font-size: 25px;
+            font-weight: 800;
+
+        }
+
+        .logo {
+            text-decoration: none;
+
+        }
+
+
+        .a3 {
+            color: rgb(11, 131, 230);
+        }
+
+        .a1 {
+            color: black;
+
+        }
+
+        .a1:hover {
+            color: rgb(11, 131, 230);
+        }
+
+
+        .a2 {
+            height: 500px;
+        }
+
+        .menu {
+            background-color: #51E2F5;
+
+        }
+
+
+
+
+        .bb {
+            width: 100px;
+        }
+
+        .ix {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .option {
+            text-decoration: none;
+        }
+
+        .mid {
+            height: 300px;
+        }
+
+        .task {
+            text-decoration: none;
+        }
+
+        .dash {
+
+            text-align: center;
+        }
+
+        .dash h4 {
+            font-family: 'Alfa Slab One', cursive;
+			font-family: 'Alkatra', cursive;
+            padding-top: 10px;
+            font-size: 40px;
+        }
+
+        /* -------col 11------------------------------*/
+
+        .exception {
+            color: red;
+        }
+
+        .invalid-feedback {
+            display: flex;
+            flex-wrap: wrap;
+            position: relative;
+
+        }
+
+
+        .card-body {
+
+            background: white;
+
+            border-radius: 20px;
+
+        }
+
+        .card {
+            margin-top: 50px;
+            background-color: whitesmoke;
+            border-radius: 20px;
+
+
+            box-shadow: grey;
+        }
+
+        .foot {
+            background-color: #8AAAE5;
+        }
+
+        h3 {
+
+            height: 55px;
+            background: #51E2F5;
+
+            color: black;
+            padding-top: 10px;
+            text-align: center;
+            border-radius: 10px;
+            font-Size: 36px
+        }
+
+        .label {
+            color: black;
+            font-weight: 700;
+        }
+
+        /*----------------coll-11-----end--------*/
+
+        @media screen and (max-width: 767px) {
+            #chart-line {
+                width: 100%;
+                height: 300px;
+            }
+        }
+
+        @media screen and (max-width: 1300px) {
+            #chart-line {
+                width: 100% !important;
+                height: auto !important;
+            }
+        }
+        .input1{
+            width: 290px;
+            margin-left: 100px !important;
+        }
+        .input2{
+            width: 290px;
+
+            margin-LEFT:90px !important;
+        }
+
+        .error-message,
+        .name1error-message,
+        .name2error-message,
+        .pherror-message,
+        .name3error-message,
+        .name4error-message {
+            color: red;
+            display: none;
+            margin-right: 20px;
+        }
+
+        .error-message.active,
+        .name2error-message.active,
+        .name1error-message.active,
+        .pherror-message.active,
+        .name3error-message.active,
+        .name4error-message.active {
+            display: block;
+        }
+        .head {
+           background-color: #51E2F5;
+
+
+        }
+        .dash {
+            text-align: center;
+            margin-bottom: -10px;
+        }
+        #logContainer{
+
+            position: fixed;
+            left: 95rem;
+            top: 10rem;
+            height: auto;
+            padding: 10px;
+            height: 81vh;
+            overflow: scroll;
+            border-radius: 10px;
+            background-color: white;
+
+        }
+
+            .fixed-header {
+              position: sticky;
+              top: 0;
+              z-index: 1;
+            }
+            .drop-zone {
+                border: 2px dashed #ccc;
+                padding: 20px;
+                text-align: center;
+                margin-bottom: 20px;
+            }
+        .lb{
+            margin-left: 84px !important;
+        }
+                @media (max-width: 767px) {
+            /* Adjustments for smaller screens */
+            .col-lg-1 {
+                display: none; /* Hide the left sidebar on smaller screens */
+            }
+
+            .col-10 {
+                width: 100%; /* Expand content to full width */
+            }
+
+            .btn2 {
+                display: block; /* Show the mobile menu button */
+            }
+
+            .lb  {
+                margin-left: 0 !important; /* Adjust label margin */
+            }
+            .lbb {
+                margin-left: 50px !important; /* Adjust label margin */
+            }
+
+            .input1,
+            .input2 {
+                width: 100%; /* Make text inputs full width */
+                margin-left: 0 !important;
+            }
+
+
+                }
+            #ciq{
+                 margin-top: 30px;
+    background-color: rgb(12, 221, 12);
+    padding: 5px 20px 5px 20px;
+    border: 2px solid rgb(7, 158, 7);
+    border-radius: 10px;
+    margin-left: 150px;
+            }
+             #ciq:hover{
+            background-color: rgb(7, 158, 7);
+
+
+             }
+    </style>
+
+</head>
+
+<body class="sidebar-mini fixed">
+    {% load static %}
+
+
+    <div class="wrapper">
+        <!-- Navbar-->
+        <header class="main-header-top hidden-print ">
+            <div class="container-fluid border border rounded" style="padding: 0px 0px 0px 0px;">
+
+                <nav class="navbar navbar-static-top">
+                   <img src='{% static "images/int.png" %}' class="img ps-2" width="140" height="50" alt="integer logo">
+
+                    <button class="btn2 float-start bg-secondary" data-bs-toggle="offcanvas" data-bs-target="#offcanvas"
+                        role="button">
+                        <i class="text-light " data-bs-toggle="offcanvas" data-bs-target="#offcanvas"><i
+                                class="fa fa-bars"></i></i>
+
+                        <button onclick="showOrHide()" class="tog float-end bg-" role="button" style="height: 30px;">
+                            <i class="text-dark "><i class="fa fa-bars"></i></i>
+                        </button>
+
+
+                        <ul class="top-nav">
+                            <!--Notification Menu-->
+
+
+                            <div class="btn-group">
+                                <button type="button" class="btn btn dropdown-toggle dropdown-toggle-split"
+                                    data-bs-toggle="dropdown" aria-expanded="false"><span><img class="img-circle "
+                                        src='{% static "images/B.png" %}'
+                                        style="width:40px; border: 1px solid black; border-radius: 80px;"
+                                        alt="User Image"></span>
+                                </button>
+
+                                <ul class="dropdown-menu px-2 ">
+
+                                    <li><a href="" style="text-decoration: none;" ><i class="icon-settings px-2"></i> Settings</a></li>
+                                    <li> <a href="" style="text-decoration: none;"><i class="icon-user px-2"></i> Profile</a></li>
+                                    <li><a href="#" style="text-decoration: none;"><i class="icon-envelope-open px-2 "></i> My Messages</a></li>
+                                    <li><a href="" style="text-decoration: none;"><i class="icon-logout px-2"></i> Logout</a></li>
+                                    <li>
+                                        <hr class="dropdown-divider">
+                                    </li>
+                                    <li><a class="dropdown-item" href="#">Lock Screen</a></li>
+
+                                </ul>
+                            </div>
+
+                            <div class="btn-group">
+
+                                <button type="button" class="btn btn-light dropdown-toggle " data-bs-toggle="dropdown"
+                                    aria-expanded="false">Pushpendra
+
+                                </button>
+                                <ul class="dropdown-menu pe-5 ps-1 ">
+
+                                    <li><a class="dropdown-item" href="#">Email </a></li>
+                                    <li><a class="dropdown-item" href="#">Profile </a></li>
+
+
+
+                                </ul>
+                            </div>
+
+
+
+
+                        </ul>
+            </div>
+            </nav>
+
+        </header>
+
+        <!-- Side-Nav-->
+        <div class="col-10 offcanvas offcanvas-start w-25" tabindex="-1" id="offcanvas" data-bs-keyboard="false"
+            data-bs-backdrop="false">
+            <div class="menu offcanvas-header">
+                <h6 class="offcanvas-title d-none d-sm-block text-dark" id="offcanvas">Menu</h6>
+                <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
+                    aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body px-0 " style="background-color:white">
+                <ul class="nav nav-pills flex-column  align-items-start  ps-3 " id="menu"
+                    style="text-decoration: black ;  ">
+ 									  <li class="nav-item " style="width:140px ;">
+                        <a class="nav-link  "  style="margin-left: -13px;"  href="">Converter</a>
+                    </li>
+                    <li class="nav-item " style="width:140px ;">
+                        <a class="nav-link  "  style="margin-left: -13px;"  href="/replace_variables">Modify</a>
+                    </li>
+                    <li class="nav-item active" style="width:140px ;">
+                        <a class="nav-link  "  style="margin-left: -13px;"  href="/upload">CIQ</a>
+                    </li>
+                    <li class="nav-item">
+
+                        <a class="nav-link "  style="margin-left: -13px;" href="">Account</a>
+                    </li>
+
+
+                    <li class="nav-item" style="width:140px ;">
+                        <a class="nav-link "  style="margin-left: -13px;" href="">Login</a>
+                    </li>
+
+                    <li class="nav-item">
+
+                        <a class="nav-link "  style="margin-left: -13px;" href="">Logout</a>
+                    </li>
+                </ul>
+
+            </div>
+        </div>
+
+        <div class="row">
+
+            <div class="col-lg-1 border" id="div1">
+                <nav class="navbar navbar-expand navbar-light bg-light">
+                    <div class="container" style="padding: 0px 0px 0px 0px ;">
+                        <!-- <div class="container-fluid"> -->
+
+                        <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+                            <!-- <div class="container-fluid"> -->
+                            <div class="col">
+                                <div id="sidebar" class="col col-2 ">
+                                    <ul class="navbar-nav float-start flex-column ms-0" id="sidemenu">
+
+
+                                        <li class="nav-item " style="width:140px ;">
+											<a class="nav-link  " href=""><i
+													class="fa fa-table me-1 pe-1"></i>&nbspUserlist</a>
+										</li>
+                                        <li class="nav-item">
+
+                                            <a class="nav-link" href=""><i
+                                                    class="fa fa-road me-1 pe-2"></i>Activity</a>
+                                        </li>
+
+                                        <li class="nav-item">
+
+											<a class="nav-link " href=""><i
+													class="fa fa-list me-1 pe-2"></i>Converter</a>
+										</li>
+										<li class="nav-item">
+
+											<a class="nav-link  " href="/replace_variables"><i
+													class="fa fa-star me-1 pe-2"></i>Modify</a>
+										</li>
+										<li class="nav-item">
+
+											<a class="nav-link active" href="/upload"><i
+													class="fa fa-car me-1 pe-2"></i>CIQ</a>
+										</li>
+										<li class="nav-item">
+
+											<a class="nav-link " href=""><i
+													class="fa fa-user me-1 pe-1"></i>Account</a>
+										</li>
+
+                                        <li class="nav-item dropdown">
+                                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                                               data-bs-toggle="dropdown" aria-expanded="false" style="color: gray;">
+                                                <i class="fa fa-tools me-1 pe-2"></i>Tool
+                                            </a>
+
+                                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                                <li><a class="dropdown-item" href="" style="color: gray;">Log File</a></li>
+                                                <li><a class="dropdown-item" href="" style="color: gray;">EDP File</a></li>
+                                                <li><a class="dropdown-item" href="" style="color: gray;">Cell Node File</a></li>
+                                                <li><a class="dropdown-item" href="" style="color: gray;">Compare Excel</a></li>
+                                            </ul>
+
+                                        </li>
+                                        <li class="nav-item dropdown">
+                                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                                               data-bs-toggle="dropdown" aria-expanded="false" style="color: gray;">
+                                                <i class="fa fa-bell me-1 pe-2"></i>Tool History
+                                            </a>
+
+                                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                                <li><a class="dropdown-item" href="" style="color: gray;">Log History</a></li>
+                                                <li><a class="dropdown-item" href="" style="color: gray;">EDP History</a></li>
+                                                <li><a class="dropdown-item" href="" style="color: gray;">CellNode History</a></li>
+                                                <li><a class="dropdown-item" href="" style="color: gray;">Compare History</a></li>
+                                            </ul>
+
+                                        </li>
+
+
+                                        <li class="nav-item" style="width:140px ;">
+											<a class="nav-link " href=""><i
+													class="fa fa-user me-1 pe-1"></i>&nbspLogin</a>
+										</li>
+
+
+										<li class="nav-item">
+
+											<a class="nav-link " href=""><i
+													class="fa fa-rocket me-1 pe-2"></i>Logout</a>
+										</li>
+
+                                    </ul>
+
+
+
+
+
+                </nav>
+            </div>
+            <div class="col-lg-11 border" id="myDiv"  style="height:100vh;">
+
+
+                <div class="content-wrapper">
+
+
+                    <div class="container-fluid">
+                        <div class="head row" style="--bs-gutter-x:3rem !important;  margin-right: calc(-.8 * var(--bs-gutter-x));">
+                            <div class="dash main-header">
+
+                                <h4>SCRIPT CONVERTER</h4>
+                            </div>
+                            </div>
+                            <section class="vh-50 gradient-custom ">
+                                <div class="container py-5 h-100">
+                                    <div class="row  justify-content-center align-items-center h-100">
+                                        <div class="col-12 col-lg-9 col-xl-7">
+                                            <div class="card shadow-2-strong card-registration"
+                                                style="border-radius: 15px;">
+                                                <div class="card-body p-4 p-md-5">
+                                                 <div class="" style="text-align: center;">
+                                                    <h2 class="mb-5">Upload a PDF</h2>
+                                                 </div>
+                                                    <!-- pdf_converter_app/templates/upload.html -->
+
+                                                <form method="post" enctype="multipart/form-data">
+                                                    {% csrf_token %}
+                                                    <input class="ms-3" type="file" name="pdf_file">
+                                                    <button id="ciq" class=""style="background-color: lightgreen;"type="submit">Generate Ciq</button>
+                                                </form>
+
+                                                <!-- pdf_converter_app/templates/success.html -->
+
+                                                <!-- Display any relevant success message here -->
+                                                <!-- pdf_converter_app/templates/error.html -->
+
+                                                <p>{{ error_message }}</p>
+
+
+
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+
+                        </div>
+
+
+
+
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+
+    <script>
+        var $window = $(window);
+        var nav = $('.fixed-button');
+        $window.scroll(function () {
+            if ($window.scrollTop() >= 200) {
+                nav.addClass('active');
+            }
+            else {
+                nav.removeClass('active');
+            }
+        });
+
+        function ExportToExcel(type, fn, dl) {
+            var elt = document.getElementById('example1');
+            var wb = XLSX.utils.table_to_book(elt, { sheet: "sheet1" });
+            return dl ?
+                XLSX.write(wb, { bookType: type, bookSST: true, type: 'base64' }) :
+                XLSX.writeFile(wb, fn || ('MySheetName.' + (type || 'xlsx')));
+        }
+
+        $(document).ready(function () {
+            $('#example1').DataTable({
+                dom: '<"top"iflp<"clear">>rt<"bottom"iflp<"clear">>',
+            });
+        });
+
+        $(document).ready(function () {
+            $('#example2').DataTable({
+                dom: '<"top"iflp<"clear">>rt<"bottom"iflp<"clear">>',
+            });
+        });
+
+
+        $(document).ready(function () {
+
+            var table1 = $('#exaple1').DataTable1({
+                responsive: true,
+            });
+
+
+            $('button[data-bs-toggle="tab"]').on('shown.bs.tab', function (event) {
+                var tabID = $(event.target).attr('data-bs-target');
+                if (tabID === '#profile') {
+                    table2.columns.adjust().responsive.recalc();
+                }
+            });
+
+
+        });
+        $(document).ready(function () {
+
+
+
+            var table2 = $('#example2').DataTable2({
+                responsive: true,
+            });
+
+
+
+        });
+
+    </script>
+    <script>
+        function showOrHide() {
+            var x = document.getElementById("div1");
+            var myDiv = document.getElementById("myDiv");
+            if (x.style.display === "inline" || myDiv.style.width === "90%") {
+                x.style.display = "none";
+                myDiv.style.width = "100%";
+            }
+            else {
+                x.style.display = "inline";
+                myDiv.style.width = "90%";
+            }
+        }
+
+
+
+
+
+
+
+    </script>
+
+</body>
+</html>
+
+
