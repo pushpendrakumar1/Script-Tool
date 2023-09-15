@@ -4,13 +4,8 @@ from openpyxl.styles import PatternFill, Font ,Alignment
 import openpyxl
 from openpyxl import load_workbook
 import openpyxl as px
-
 from openpyxl.worksheet.views import SheetView
-
-
-
-
-
+import pandas as pd
 
 def extract_value_cts_common_id(df):
     # Initialize a counter for the occurrences of 'CTS Common ID'
@@ -29,11 +24,6 @@ def extract_value_cts_common_id(df):
 
     # If the second occurrence of 'CTS Common ID' is not found, return None
     return None
-
-
-
-
-
 
 
 def extract_value(df, variable, column_offset):
@@ -74,24 +64,24 @@ def search_excel_for_variables(file_path, variables):
                 if variable == "ANTENNA MAKE - MODEL":
                     # For "ANTENNA MAKE - MODEL", use column_offset=2 (third column to the right)
                     value = extract_value(df, variable, column_offset=2)
-                    
+
                 elif variable == "RRH - WCS band (QTY/MODEL)":
                     # For "RRH - WCS band (QTY/MODEL)", use column_offset=4 (fourth column to the right)
-                    value = extract_value(df, variable, column_offset=4) 
-                    
+                    value = extract_value(df, variable, column_offset=4)
+
                 elif variable == "STRUCTURE TYPE:":
                     # For "CTS Common ID", use the custom function extract_value_cts_common_id
-                    value = extract_value(df, variable, column_offset=1)   
-                    
+                    value = extract_value(df, variable, column_offset=1)
+
                 elif variable == "CSS - SECONDARY FUNCTION ID:":
                     # For "CTS Common ID", use the custom function extract_value_cts_common_id
-                    value = extract_value(df, variable, column_offset=3)    
-                
+                    value = extract_value(df, variable, column_offset=3)
+
                 elif variable == "CTS Common ID":
                     # For "CTS Common ID", use the custom function extract_value_cts_common_id
                     value = extract_value_cts_common_id(df)
-                    
-                        
+
+
                 else:
                     # For other variables, use column_offset=1 (one column to the right)
                     value = extract_value(df, variable, column_offset=1)
@@ -107,23 +97,23 @@ def search_excel_for_variables(file_path, variables):
             if len(variable_values[variable]) < max_length:
                 variable_values[variable].extend([''] * (max_length - len(variable_values[variable])))
 
-        # Create a DataFrame with the fixed column names and values      
-        new_file_path = 'media/Pushpendra_CIQ.xlsx'
+        # Create a DataFrame with the fixed column names and values
+        new_file_path = "/home/Pushpendra123/pushpendra1/media/Pushpendra_CIQ.xlsx"
         writer = pd.ExcelWriter(new_file_path, engine='openpyxl')
 
         # Create a new Excel file using openpyxl
-      
+
 
         # Add the 'eNB Info' sheet to the Excel writer
-       
-        
+
+
         Revision_History_data = {
                "Revision History": [""]
-             
+
         }
         new_df = pd.DataFrame(Revision_History_data)
         new_df.to_excel(writer, index=False, sheet_name='Revision History')
-   
+
         enb_info_data = {
             "eNBId": variable_values["4-9 DIGIT SITE ID:"],
             "eNodeB Name": variable_values["CTS Common ID"],
@@ -155,7 +145,7 @@ def search_excel_for_variables(file_path, variables):
             "UserLabel": [''] * max_length,
         }
         new_df = pd.DataFrame(enb_info_data)
-       
+
 
 
         data = {
@@ -201,14 +191,23 @@ def search_excel_for_variables(file_path, variables):
             "cell id": [''] * max_length,
             "ci decimal": [''] * max_length
         }
-        
+
         # Create a new DataFrame from the data dictionary
         new_df = pd.DataFrame(data)
-       
-        
+
+        Cluster_data = {
+            "eNodeB Name": variable_values["CTS Common ID"],
+            "Cluster":  variable_values["MARKET CLUSTER:"],
+            "Sub Network": [''] * max_length,
+
+
+        }
+        new_df = pd.DataFrame(Cluster_data)
+
+
         pci_data = {
             "EutranCellFDDId": [''] * max_length,
-            "sectorId": [''] * max_length,
+            "sectorId": variable_values["CTS Common ID"],
             "cellId": [''] * max_length,
             "PhysicalLayerCellIdGroup": [''] * max_length,
             "physicalLayerSubCellId": [''] * max_length,
@@ -221,9 +220,9 @@ def search_excel_for_variables(file_path, variables):
             "For all sectors identified in eUtran Parameters and eUtran NeighborRelations tabs this form must be filled out": [''] * max_length,
         }
         new_df = pd.DataFrame(pci_data)
-        
+
         max_length = 30
- 
+
 # Define the text to be centered in the first row
         centered_text = "Transmission Line Specifications"
 
@@ -237,19 +236,12 @@ def search_excel_for_variables(file_path, variables):
         Feeder_Misc = {
      "Transmission Line Specifications": centered_row
 }
+        new_df = pd.DataFrame(Feeder_Misc)
 
 
-        Cluster_data = {
-            "eNodeB Name": [''] * max_length,
-            "Cluster":  [''] * max_length,
-            "Sub Network": [''] * max_length,       
-# variable_values["MARKET CLUSTER:"],
-            
-        }
-        new_df = pd.DataFrame(Cluster_data)
-        
+
         Losses_and_Delays={
-            
+
             "EutranCellFDD": [''] * max_length,
             "RU1 Feeder Type": ["FIBER"] * max_length,
             "RU1 Feeder Length": ["0"] * max_length,
@@ -300,7 +292,7 @@ def search_excel_for_variables(file_path, variables):
             "RU1 UL Jumper Delay (1nS Units)=Jumper Length (ft) / Jumper Delay (ft/nS)": ["11.547"] * max_length,
             "RU2 UL Feeder Delay (1nS Units)=Feeder Length (ft) / Feeder Delay (ft/nS)": ["0"] * max_length,
             "RU2 UL Jumper Delay (1nS Units)=Jumper Length (ft) / Jumper Delay (ft/nS)": ["11.547"] * max_length,
-            "RU1/RU2 Golden Feeder TMA UL Delay (1ns Unit)From specs sheet": ["0"] * max_length,  
+            "RU1/RU2 Golden Feeder TMA UL Delay (1ns Unit)From specs sheet": ["0"] * max_length,
             "Delay Constant": ["20"] * max_length,
             "RFBranch: RU1 dlTrafficDelay": ["17"] * max_length,
             "RFBranch: RU1 ulTrafficDelay": ["17"] * max_length,
@@ -318,22 +310,22 @@ def search_excel_for_variables(file_path, variables):
             "RFBranch: RU4 ulTrafficDelay": ["17"] * max_length,
             "RFBranch: RU4 dlAttenuation": ["0"] * max_length,
             "RFBranch: RU4 ulAttenuation": ["0"]  * max_length,
-            
+
         }
-        
+
         new_df = pd.DataFrame(Losses_and_Delays)
-        
+
         eUtran_NeighRelations_co_sites = {
             "EutranCellFDDId": [''] * max_length,
             "EutranFreqRelationID": [''] * max_length,
             "EUTRANFreqID": [''] * max_length,
             "Neigh #1": [''] * max_length,
             "Neigh #2": [''] * max_length,
-           
-            
+
+
         }
         new_df = pd.DataFrame(eUtran_NeighRelations_co_sites)
-        
+
         LTE_UMTS_UtranFreqRelation = {
             "EUtranCellFDD": [''] * max_length,
             "UtranFreqRelationId": [''] * max_length,
@@ -344,11 +336,11 @@ def search_excel_for_variables(file_path, variables):
             "ExternalUTRANFreqID": [''] * max_length,
             "uarfcn": [''] * max_length,
             "County": [''] * max_length,
-           
-            
+
+
         }
         new_df = pd.DataFrame(eUtran_NeighRelations_co_sites)
-        
+
         LTE_LTE_EUtranFreqRelation = {
             "EUtranCellFDD": [''] * max_length,
             "EutranFreqRelationID": [''] * max_length,
@@ -358,30 +350,30 @@ def search_excel_for_variables(file_path, variables):
             "earfcn": [''] * max_length,
             "threshXHigh": [''] * max_length,
             "threshXLow": [''] * max_length,
-           
-            
+
+
         }
         new_df = pd.DataFrame(eUtran_NeighRelations_co_sites)
-       
 
-        
-        
-       
-               
-        
+
+
+
+
+
+
         Revision_History_df = pd.DataFrame(Revision_History_data)
         Revision_History_df.to_excel(writer, index=False, sheet_name='Revision History')
-        
+
         new_df.to_excel(writer, index=False, sheet_name='eNB Info')
-        
+
         workbook = writer.book
-        
-      
- 
+
+
+
 
 # Merge and format the cell for the Transmission Line Specifications heading
 
-       
+
         worksheet = workbook['Revision History']
         headers_data = {
         "Version": ["", ""],
@@ -408,12 +400,12 @@ def search_excel_for_variables(file_path, variables):
 
     # Write the DataFrame to the Excel file starting from the second row
         df_headers.to_excel(writer, index=False, sheet_name='Revision History', startrow=3)
-        
-       
-        
+
+
+
         enb_info_df = pd.DataFrame(enb_info_data)
         enb_info_df.to_excel(writer, index=False, sheet_name='eNB Info')
-               
+
         column_width=15
         for sheet in workbook:
         # Adjust the width for all columns in the sheet
@@ -424,23 +416,23 @@ def search_excel_for_variables(file_path, variables):
                     cell_length = len(str(cell.value))
                     adjusted_width = (cell_length + 2) if cell_length >= 10 else column_width
                     sheet.column_dimensions[cell.column_letter].width = adjusted_width
-                    
-                    
-     
-        
+
+
+
+
         # Add the DataFrame to the Excel writer in 'eUtran Parameters' sheet
         new_df.to_excel(writer, index=False, sheet_name='eUtran Parameters')
-        
+
 
         # Access the openpyxl workbook and worksheet objects
         workbook = writer.book
         worksheet = workbook['eNB Info']
-        
+
         set_first_row_style(worksheet)
-        
+
         data_df = pd.DataFrame(data)
         data_df.to_excel(writer, index=False, sheet_name='eUtran Parameters')
-        
+
         column_width=15
         for sheet in workbook:
         # Adjust the width for all columns in the sheet
@@ -454,16 +446,16 @@ def search_excel_for_variables(file_path, variables):
 
         # Add the DataFrame to the Excel writer in 'eUtran Parameters' sheet
         new_df.to_excel(writer, index=False, sheet_name='PCI')
-        
+
 
         # Access the openpyxl workbook and worksheet objects
         workbook = writer.book
         worksheet = workbook['eUtran Parameters']
         set_first_row_style(worksheet)
-        
+
         pci_df = pd.DataFrame(pci_data)
         pci_df.to_excel(writer, index=False, sheet_name='PCI')
-        
+
         column_width=15
         for sheet in workbook:
         # Adjust the width for all columns in the sheet
@@ -474,14 +466,14 @@ def search_excel_for_variables(file_path, variables):
                     cell_length = len(str(cell.value))
                     adjusted_width = (cell_length + 2) if cell_length >= 10 else column_width
                     sheet.column_dimensions[cell.column_letter].width = adjusted_width
-        
+
         new_df.to_excel(writer, index=False, sheet_name='Feeder Misc')
-        
+
         workbook = writer.book
         worksheet = workbook['PCI']
         set_first_row_style(worksheet)
-        
-        
+
+
         Feeder_Misc_df = pd.DataFrame(Feeder_Misc)
         Feeder_Misc_df.to_excel(writer, index=False, sheet_name='Feeder Misc')
         column_width=15
@@ -494,16 +486,16 @@ def search_excel_for_variables(file_path, variables):
                     cell_length = len(str(cell.value))
                     adjusted_width = (cell_length + 2) if cell_length >= 10 else column_width
                     sheet.column_dimensions[cell.column_letter].width = adjusted_width
-        
+
         new_df.to_excel(writer, index=False, sheet_name='Cluster')
-        
+
         workbook = writer.book
         worksheet = workbook['Feeder Misc']
         set_first_row_style(worksheet)
         worksheet = workbook['Feeder Misc']
-       
-        
-        
+
+
+
         max_length = 200
 
         headers_data = {
@@ -536,9 +528,9 @@ def search_excel_for_variables(file_path, variables):
     "Loss (dB/m)-850": [
         "0.06668", "0.03757", "0.02678", "0.02211", "0.01913", "0.03436", "0.02051", "0.04083", "0.02913", "0.03576", "0.02028",
         "0.03512", "0.02545", "0.02083", "0.03326", "0.02013", "0.06598", "0.03589", "0.02678", "0.02171", "0.00000", "",""
-    ], 
-    
-    
+    ],
+
+
      "Loss (dB/ft)-1700": [
         "", "", "", "", "", "", "", "", "", "", "",
         "", "", "", "0.01520", "", "", "", "", "", "", "0.0287",""
@@ -546,14 +538,14 @@ def search_excel_for_variables(file_path, variables):
     "Loss (dB/m)-1700": [
         "", "", "", "", "", "", "", "", "", "", "",
         "", "", "", "", "", "", "", "", "", "", "",""
-    ], 
-    
-    
-    
-    
-    
-    
-    
+    ],
+
+
+
+
+
+
+
     "Loss (dB/ft)-1900": [
         "0.03160", "0.01805", "0.01310", "0.01095", "0.009615", "0.016345", "0.00993", "0.019565", "0.01428", "0.017025", "0.009895", "0.01660",
         "0.01220", "0.00998","0.01630", "0.01015",
@@ -607,9 +599,9 @@ def search_excel_for_variables(file_path, variables):
             cell.fill = light_green_fill
          for cell in worksheet["4"]:
             cell.fill = light_green_fill
-      
+
         df_headers = pd.DataFrame(headers_data)
-        
+
 
     # Write the DataFrame to the Excel file starting from the second row
         df_headers.to_excel(writer, index=False, sheet_name='Feeder Misc', startrow=3)
@@ -623,10 +615,10 @@ def search_excel_for_variables(file_path, variables):
                     cell_length = len(str(cell.value))
                     adjusted_width = (cell_length + 2) if cell_length >= 10 else column_width
                     sheet.column_dimensions[cell.column_letter].width = adjusted_width
-        
-        
-        
-      
+
+
+
+
         Cluster_data_df = pd.DataFrame(Cluster_data)
         Cluster_data_df.to_excel(writer, index=False, sheet_name='Cluster')
         column_width=15
@@ -639,47 +631,47 @@ def search_excel_for_variables(file_path, variables):
                     cell_length = len(str(cell.value))
                     adjusted_width = (cell_length + 2) if cell_length >= 10 else column_width
                     sheet.column_dimensions[cell.column_letter].width = adjusted_width
-        
-        sheet_name3 = 'Cluster'  
+
+        sheet_name3 = 'Cluster'
       # Access the sheet
         sheet = workbook[sheet_name3]
        # Remove the first row
         sheet.delete_cols(4)
 
         sheet.delete_cols(4)
-        
+
         new_df.to_excel(writer, index=False, sheet_name='Losses and Delays')
-        
-        
-        
+
+
+
         workbook = writer.book
-        worksheet = workbook['Cluster'] 
+        worksheet = workbook['Cluster']
         set_first_row_style(worksheet)
-        
-        
-        
+
+
+
         Losses_and_Delays_df = pd.DataFrame(Losses_and_Delays)
         Losses_and_Delays_df.to_excel(writer, index=False, sheet_name='Losses and Delays')
-        
-       
-        
-       
+
+
+
+
         new_df.to_excel(writer, index=False, sheet_name='eUtran NeighRelations co-sites')
-        
+
         workbook = writer.book
         worksheet = workbook['Losses and Delays']
         set_first_row_style(worksheet)
-        
-        
-        
+
+
+
         eUtran_NeighRelations_co_sites_df = pd.DataFrame(eUtran_NeighRelations_co_sites)
         eUtran_NeighRelations_co_sites_df.to_excel(writer, index=False, sheet_name='eUtran NeighRelations co-sites')
-        
-        
-        
-        
-        
-        
+
+
+
+
+
+
         column_width=15
         for sheet in workbook:
         # Adjust the width for all columns in the sheet
@@ -690,15 +682,15 @@ def search_excel_for_variables(file_path, variables):
                     cell_length = len(str(cell.value))
                     adjusted_width = (cell_length + 2) if cell_length >= 10 else column_width
                     sheet.column_dimensions[cell.column_letter].width = adjusted_width
-        
+
         new_df.to_excel(writer, index=False, sheet_name='LTE-UMTS (UtranFreqRelation)')
-        
+
         workbook = writer.book
         worksheet = workbook['eUtran NeighRelations co-sites']
         set_first_row_style(worksheet)
-        
-        
-        
+
+
+
         LTE_UMTS_UtranFreqRelation_df = pd.DataFrame(LTE_UMTS_UtranFreqRelation)
         LTE_UMTS_UtranFreqRelation_df.to_excel(writer, index=False, sheet_name='LTE-UMTS (UtranFreqRelation)')
         column_width=15
@@ -711,15 +703,15 @@ def search_excel_for_variables(file_path, variables):
                     cell_length = len(str(cell.value))
                     adjusted_width = (cell_length + 2) if cell_length >= 10 else column_width
                     sheet.column_dimensions[cell.column_letter].width = adjusted_width
-        
+
         new_df.to_excel(writer, index=False, sheet_name='LTE-LTE (EUtranFreqRelation)')
-        
+
         workbook = writer.book
         worksheet = workbook['LTE-UMTS (UtranFreqRelation)']
         set_first_row_style(worksheet)
-        
-        
-        
+
+
+
         LTE_LTE_EUtranFreqRelation_df = pd.DataFrame(LTE_LTE_EUtranFreqRelation)
         LTE_LTE_EUtranFreqRelation_df.to_excel(writer, index=False, sheet_name='LTE-LTE (EUtranFreqRelation)')
         column_width=15
@@ -732,39 +724,40 @@ def search_excel_for_variables(file_path, variables):
                     cell_length = len(str(cell.value))
                     adjusted_width = (cell_length + 2) if cell_length >= 10 else column_width
                     sheet.column_dimensions[cell.column_letter].width = adjusted_width
-        
+
         # new_df.to_excel(writer, index=False, sheet_name='Losses and Delays')
-        
+
         workbook = writer.book
         worksheet = workbook['LTE-LTE (EUtranFreqRelation)']
         set_first_row_style(worksheet)
 
-      
-       
+
+
 
         # Save the Excel file using the workbook's save method
-     
-        workbook.save(new_file_path)
-        
-        
 
+        workbook.save(new_file_path)
+
+
+
+        print(f"New Excel file '{new_file_path}' created successfully.")
 
     except Exception as e:
         print("Error occurred:", e)
 
 # Example usage:
-# if len(sys.argv) != 2:
-#         print("Usage: python final_tool.py <input_file>")
-#         sys.exit(1)
+if len(sys.argv) != 2:
+        print("Usage: python final_tool.py <input_file>")
+        sys.exit(1)
 
-input_file = 'media/output.xlsx'
+input_file = sys.argv[1]
 search_variables = ["MARKET CLUSTER:","4-9 DIGIT SITE ID:","Approved? (Y/N):","REGION:", "LAT (DEC. DEG.):","CELL ID / BCF:", "LONG (DEC. DEG.):","ADDRESS:","STRUCTURE TYPE:","CTS Common ID","CSS - SECONDARY FUNCTION ID:", "AZIMUTH", "COUNTY:", "Soft Sector IDs", "ANTENNA MAKE - MODEL", "RRH - WCS band (QTY/MODEL)"]
 search_excel_for_variables(input_file, search_variables)
 
 
 import re
 
-    
+
 def update_eutran_parameters(input_file):
     input_sheet = "Sheet5"  # Assuming you want to use the same sheet as mentioned in the example
 
@@ -778,27 +771,26 @@ def update_eutran_parameters(input_file):
     # Convert start_row to an integer
     start_row = int(start_row_str)
     column_index = int(start_column_values)
-    output_file ='media/Pushpendra_CIQ.xlsx'
-
 
     # Load the Pushpendra_CIQ.xlsx file
+    output_file = "/home/Pushpendra123/pushpendra1/media/Pushpendra_CIQ.xlsx"
     wb = openpyxl.load_workbook(output_file)
 
     # Select the "eUtran Parameters" sheet
     output_sheet_name = "eUtran Parameters"
     output_sheet = wb[output_sheet_name]
-    
-  
+
+
 
     # Start from the specified row and column and put each value from the extracted data on a new row
     row_index = 2  # Start from row 2 in the output sheet
     for value in output_values:  # Loop through the extracted values
         output_sheet.cell(row=row_index, column=column_index, value=value)
         row_index += 1
-        
-        
+
+
     output_sheet_name = "Losses and Delays"
-    output_sheet = wb[output_sheet_name]   
+    output_sheet = wb[output_sheet_name]
     row_index = 2
     col_index = 2
     # Start from row 2 in the output sheet
@@ -806,9 +798,9 @@ def update_eutran_parameters(input_file):
         output_sheet.cell(row=row_index, column=1, value=value)
         row_index += 1
         col_index += 0
-        
+
     output_sheet_name = "PCI"
-    output_sheet = wb[output_sheet_name]   
+    output_sheet = wb[output_sheet_name]
     row_index = 2
     col_index = 1
     # Start from row 2 in the output sheet
@@ -816,9 +808,9 @@ def update_eutran_parameters(input_file):
         output_sheet.cell(row=row_index, column=1, value=value)
         row_index += 1
         col_index += 0
-        
-    output_sheet_name = "eUtran NeighRelations co-sites"   
-    output_sheet = wb[output_sheet_name] 
+
+    output_sheet_name = "eUtran NeighRelations co-sites"
+    output_sheet = wb[output_sheet_name]
     row_index = 2
     col_index = 1
     value_mapping = {}  # To keep track of values in column 4
@@ -835,8 +827,8 @@ def update_eutran_parameters(input_file):
         elif prefix.endswith("B"):
             new_prefix = prefix.replace("B", "A")
         elif prefix.endswith("C"):
-            new_prefix = prefix.replace("C", "A")  
-          
+            new_prefix = prefix.replace("C", "A")
+
         else:
             new_prefix = prefix  # Keep the same prefix if it's not A or B
 
@@ -852,23 +844,23 @@ def update_eutran_parameters(input_file):
         output_sheet.cell(row=row_index, column=4, value=new_value)
         row_index += 1
         col_index += 0
-        
-        
+
+
     row_index = 2
     col_index = 1
     # Start from row 2 in the output sheet
     for value in output_values:  # Loop through the extracted values
         output_sheet.cell(row=row_index, column=1, value=value)
         row_index += 1
-        col_index += 0       
+        col_index += 0
 
     # Save the changes to the same file, replacing the old one
     wb.save(output_file)
 
 def find_and_extract_data(input_file, start_sheet):
-    
-    
-    
+
+
+
     wb = openpyxl.load_workbook(input_file)
 
     # Initialize variables to keep track of the latest occurrence of 'Soft Sector IDs'
@@ -892,20 +884,18 @@ def find_and_extract_data(input_file, start_sheet):
             latest_cell_row += 1
 
         return latest_cell_row, target_column, output_values
-    
-    
-    
-      
+
+
+
+
     # If 'Soft Sector IDs' is not found, return None
     return None, None, None
-
-        
 
 # Example usage:
 # input_file = "file2.xlsx"
 update_eutran_parameters(input_file)
 sheet_name = 'Feeder Misc'  # Replace with the sheet name you want to edit
-output_file = 'media/Pushpendra_CIQ.xlsx'
+output_file =  "/home/Pushpendra123/pushpendra1/media/Pushpendra_CIQ.xlsx"
 def edit_excel_file(output_file, sheet_name):
     try:
         # Load the workbook
@@ -947,18 +937,16 @@ def edit_excel_file(output_file, sheet_name):
                 cell.fill = PatternFill(start_color='000000', end_color='000000', fill_type='solid')
                 # Set the font color to white
                 cell.font = Font(color='FFFFFF')
-        
+
         sheet.sheet_properties.tabColor = "FFFFFFFF"
 
         # Save the changes to the workbook
         wb.save(output_file)
         wb.close()
 
-      
+
     except Exception as e:
         print(f"An error occurred: {e}")
-
-
 
 sheet_name2 = 'Revision History'  # Replace with the sheet name you want to edit
 
@@ -999,7 +987,7 @@ def edit_excel_file2(output_file, sheet_name2):
                 cell.fill = PatternFill(start_color='73DCFF', end_color='73DCFF', fill_type='solid')
                 # Set the font color to white
                 cell.font = Font(color='000000')
-        
+
 
 
         for row in sheet.iter_rows(min_row=4, max_row=4,max_col=4):
@@ -1007,22 +995,21 @@ def edit_excel_file2(output_file, sheet_name2):
                 cell.fill = PatternFill(start_color='90EE90', end_color='90EE90', fill_type='solid')
                 # Set the font color to white
                 cell.font = Font(color='000000')
-                
+
                 column_widths = [25, 88, 30, 34]
                 for col, width in enumerate(column_widths, start=1):
-                    sheet.column_dimensions[sheet.cell(row=4, column=col).column_letter].width = width 
-        
+                    sheet.column_dimensions[sheet.cell(row=4, column=col).column_letter].width = width
+
 
         # Save the changes to the workbook
         wb.save(output_file)
         wb.close()
 
-       
+
     except Exception as e:
         print(f"An error occurred: {e}")
-        
-        
-        
+
+
 # Call the function to edit the Excel file
 sheet_name4 = 'Losses and Delays'
 cell_width=10
@@ -1030,7 +1017,7 @@ cell_height=150
 def set_vertical_text_in_cells(output_file, sheet_name4 , cell_width, cell_height):
     # Load the existing Excel file or create a new one
     workbook = openpyxl.load_workbook(output_file)
-    
+
     # Select the desired sheet
     sheet = workbook[sheet_name4]
 
@@ -1046,16 +1033,14 @@ def set_vertical_text_in_cells(output_file, sheet_name4 , cell_width, cell_heigh
     for cell in first_row:
         if cell.value:
             cell.alignment = Alignment(textRotation=90 , wrapText=True)
-            cell.value = cell.value  
-            
+            cell.value = cell.value
+
     column_widths = [18]
     for col, width in enumerate(column_widths, start=1):
-                    sheet.column_dimensions[sheet.cell(row=4, column=col).column_letter].width = width         
+                    sheet.column_dimensions[sheet.cell(row=4, column=col).column_letter].width = width
 
     # Save the modified Excel file
     workbook.save(output_file)
-    
-
 
 columns_to_lock_per_sheet = {
     3: [1, 2],  # Lock columns 1 and 2 in sheet 2
@@ -1076,11 +1061,7 @@ def lock_columns(output_file, columns_to_lock_per_sheet):
         # Freeze the panes to make specified columns fixed
         sheet.freeze_panes = sheet.cell(row=1, column=freeze_column_index)
     # Save the modified Excel fil
-    wb.save(output_file)   
-    
-
-
-
+    wb.save(output_file)
 
 import re
 
@@ -1126,7 +1107,7 @@ def find_value_between_underscores(input_data):
             return None
 
 # Load the Excel file
-excel_file_path ='media/Pushpendra_CIQ.xlsx'
+excel_file_path = "/home/Pushpendra123/pushpendra1/media/Pushpendra_CIQ.xlsx"
 workbook = openpyxl.load_workbook(excel_file_path)
 sheet = workbook["eUtran NeighRelations co-sites"]  # Assuming the sheet name is "Sheet8"
 
@@ -1150,9 +1131,10 @@ for row in range(start_row, max_row + 1):
 
 # Save the changes to the Excel file
     result = find_value_between_underscores(cell_value)
-   
+    if result:
+            print(result)
 
-excel_file_path ='media/Pushpendra_CIQ.xlsx'
+excel_file_path = "/home/Pushpendra123/pushpendra1/media/Pushpendra_CIQ.xlsx"
 workbook = openpyxl.load_workbook(excel_file_path)
 sheet = workbook["eUtran NeighRelations co-sites"]  # Assuming the sheet name is "Sheet8"
 
@@ -1178,14 +1160,7 @@ for row in range(start_row, max_row + 1):
 # Save the changes to the Excel file
 workbook.save(excel_file_path)
 
-
-
-
-
-
-
 edit_excel_file(output_file, sheet_name)
 edit_excel_file2(output_file, sheet_name2)
 set_vertical_text_in_cells(output_file, sheet_name4, cell_width, cell_height)
 lock_columns(output_file, columns_to_lock_per_sheet)
-print("success")
