@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>CONVERTER Tool</title>
+    <title>Modify Script</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
@@ -36,7 +36,7 @@
     <link
     href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Alkatra:wght@500;700&family=Braah+One&family=Kaushan+Script&family=Lilita+One&display=swap"
     rel="stylesheet">
-       
+
     <link href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.2/min/dropzone.min.css" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.2/min/dropzone.min.js"></script>
 
@@ -44,12 +44,12 @@
 
 
     <style>
-       
+
         .row{
-            color: rgb(20, 20, 20);
+            color: black;
             font-size: 16px;
             font-weight: 500;
-           
+
         }
         .midbox {
             height: 350px !important;
@@ -254,7 +254,7 @@
         }
 
         .dash {
-            
+
             text-align: center;
         }
 
@@ -280,9 +280,9 @@
 
 
         .card-body {
-            
+
             background: white;
-           
+
             border-radius: 20px;
 
         }
@@ -292,7 +292,7 @@
             background-color: whitesmoke;
             border-radius: 20px;
 
-          
+
             box-shadow: grey;
         }
 
@@ -304,7 +304,7 @@
 
             height: 55px;
             background: #51E2F5;
-           
+
             color: black;
             padding-top: 10px;
             text-align: center;
@@ -332,6 +332,7 @@
                 height: auto !important;
             }
         }
+
         .input1{
             width: 290px;
             margin-left: 100px !important;
@@ -363,27 +364,27 @@
         }
         .head {
            background-color: #51E2F5;
-          
-           
+
+
         }
         .dash {
             text-align: center;
             margin-bottom: -10px;
         }
         #logContainer{
-   
+
             position: fixed;
             left: 95rem;
             top: 10rem;
-            height: auto; 
+            height: auto;
             padding: 10px;
             height: 81vh;
             overflow: scroll;
             border-radius: 10px;
             background-color: white;
-        
-        }   
-        
+
+        }
+
             .fixed-header {
               position: sticky;
               top: 0;
@@ -398,13 +399,91 @@
         .lb{
             margin-left: 84px !important;
         }
+
+
         .input-field1 {
+            /* Styles for FieldreplaceableUnit_value(RRU-7) */
+            width: 240px;
+            padding: 1px;
+
+        }
+
+
+        .input-field2 {
+            /* Styles for AntennaUnitGroup_value */
+           width: 240px;
+            padding: 1px;
+
+        }
+
+        .input-field3 {
+            /* Styles for AntennaUnitGroup_value */
+            width: 240px;
+            padding: 1px;
+
+        }
+        .input-field4 {
+            /* Styles for AntennaUnitGroup_value */
+           width: 240px;
+            padding: 1px;
+
+        }
+        .input-field5 {
+            /* Styles for AntennaUnitGroup_value */
+            width: 240px;
+            padding: 1px;
+
+        }
+        .input-field6 {
+            /* Styles for AntennaUnitGroup_value */
+           width: 240px;
+            padding: 1px;
+
+        }
+        .input-field7 {
+            /* Styles for AntennaUnitGroup_value */
+           width: 240px;
+            padding: 1px;
+
+        }
+        .input-field8 {
+            /* Styles for AntennaUnitGroup_value */
+           width: 240px;
+            padding: 1px;
+
+        }
+        .input-field9 {
+            /* Styles for AntennaUnitGroup_value */
+           width: 240px;
+            padding: 1px;
+
+        }
+        .input-field10 {
+            /* Styles for AntennaUnitGroup_value */
+width: 240px;
+            padding: 1px;
+
+        }
+        .input-field11 {
+            /* Styles for AntennaUnitGroup_value */
+           width: 240px;
+            padding: 1px;
+
+        }
+        .input-field12 {
+            /* Styles for AntennaUnitGroup_value */
+
+            padding: 1px;
+          width: 240px;
+        }
+       @media screen and (min-width: 1200px) {
+              .input-field1 {
             /* Styles for FieldreplaceableUnit_value(RRU-7) */
             margin-left: 10px;
             padding: 1px;
              width: 240px;
         }
- 
+
 
         .input-field2 {
             /* Styles for AntennaUnitGroup_value */
@@ -473,6 +552,11 @@
             padding: 1px;
             width: 240px;
         }
+        #tt{
+          margin-left: 200px
+        }
+         }
+
   .replace {
     background-color: rgb(12, 221, 12);
     padding: 7px 30px 7px 30px;
@@ -481,7 +565,7 @@
   }
   .replace:hover{
     background-color: rgb(7, 158, 7);
-  } 
+  }
   .replaces {
     margin-top: 30px;
     background-color: rgb(12, 221, 12);
@@ -491,7 +575,7 @@
   }
   .replaces:hover{
     background-color: rgb(7, 158, 7);
-  } 
+  }
     </style>
 
 </head>
@@ -551,10 +635,10 @@
 
                                 </button>
                                 <ul class="dropdown-menu pe-5 ps-1 ">
-                                 
+
                                     <li><a class="dropdown-item" href="#">Email </a></li>
                                     <li><a class="dropdown-item" href="#">Profile </a></li>
-                                  
+
 
                                 </ul>
                             </div>
@@ -581,25 +665,24 @@
                     style="text-decoration: black ;  ">
 
 
-                 
-                   
+
+
                     <li class="nav-item " style="width:140px ;">
-                        <a class="nav-link  "  style="margin-left: -13px;"  href="?process_view">Converter</a>
+                        <a class="nav-link  "  style="margin-left: -13px;"  href="/">Converter</a>
                     </li>
-                    <li class="nav-item " style="width:140px ;">
+                    <li class="nav-item active" style="width:140px ;">
                         <a class="nav-link  "  style="margin-left: -13px;"  href="">Modify</a>
+                    </li>
+                     <li class="nav-item " style="width:140px ;">
+                        <a class="nav-link  "  style="margin-left: -13px;"  href="/upload">CIQ</a>
                     </li>
                     <li class="nav-item">
 
                         <a class="nav-link "  style="margin-left: -13px;" href="">Account</a>
                     </li>
-                    <li class="nav-item">
 
-                        <a class="nav-link  " href="/process"><i
-                                class="fa fa-road me-1 pe-2"></i>EDP</a>
-                    </li>
-                   
-                    
+
+
                     <li class="nav-item" style="width:140px ;">
                         <a class="nav-link "  style="margin-left: -13px;" href="">Login</a>
                     </li>
@@ -625,12 +708,9 @@
                             <div class="col">
                                 <div id="sidebar" class="col col-2 ">
                                     <ul class="navbar-nav float-start flex-column ms-0" id="sidemenu">
-<li class="nav-item ms-2">
-                                        
-										</li>
-										
-                                       
-                                        <li class="nav-item " style="width:140px ;">
+
+
+									 <li class="nav-item " style="width:140px ;">
 											<a class="nav-link  " href=""><i
 													class="fa fa-table me-1 pe-1"></i>&nbspUserlist</a>
 										</li>
@@ -639,35 +719,35 @@
                                             <a class="nav-link" href=""><i
                                                     class="fa fa-road me-1 pe-2"></i>Activity</a>
                                         </li>
-										
-									
 
-									
-
-										
-									
                                         <li class="nav-item">
 
 											<a class="nav-link " href="/"><i
-													class="fa fa-rocket me-1 pe-2"></i>Converter</a>
+													class="fa fa-list me-1 pe-2"></i>Converter</a>
 										</li>
 										<li class="nav-item">
 
 											<a class="nav-link active " href=""><i
-													class="fa fa-rocket me-1 pe-2"></i>Modify</a>
+													class="fa fa-star me-1 pe-2"></i>Modify</a>
 										</li>
 										<li class="nav-item">
 
-											<a class="nav-link " href=""><i
-													class="fa fa-tools me-1 pe-1"></i>Account</a>
+											<a class="nav-link  " href="/upload"><i
+													class="fa fa-car me-1 pe-2"></i>CIQ</a>
 										</li>
-                                     
+
+										<li class="nav-item">
+
+											<a class="nav-link " href=""><i
+													class="fa fa-user me-1 pe-1"></i>Account</a>
+										</li>
+
                                         <li class="nav-item dropdown">
                                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                                                data-bs-toggle="dropdown" aria-expanded="false" style="color: gray;">
                                                 <i class="fa fa-tools me-1 pe-2"></i>Tool
                                             </a>
-                                           
+
                                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                                 <li><a class="dropdown-item" href="" style="color: gray;">Log File</a></li>
                                                 <li><a class="dropdown-item" href="" style="color: gray;">EDP File</a></li>
@@ -679,31 +759,30 @@
                                         <li class="nav-item dropdown">
                                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                                                data-bs-toggle="dropdown" aria-expanded="false" style="color: gray;">
-                                                <i class="fa fa-tools me-1 pe-2"></i>Tool History
+                                                <i class="fa fa-bell me-1 pe-2"></i>Tool History
                                             </a>
-                                           
+
                                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                                <li><a class="dropdown-item" href="" style="color: gray;">Log History</a></li>  
+                                                <li><a class="dropdown-item" href="" style="color: gray;">Log History</a></li>
                                                 <li><a class="dropdown-item" href="" style="color: gray;">EDP History</a></li>
                                                 <li><a class="dropdown-item" href="" style="color: gray;">CellNode History</a></li>
-                                                <li><a class="dropdown-item" href="" style="color: gray;">Compare History</a></li>                                             
+                                                <li><a class="dropdown-item" href="" style="color: gray;">Compare History</a></li>
                                             </ul>
 
                                         </li>
-										
-										
+
+
                                         <li class="nav-item" style="width:140px ;">
 											<a class="nav-link " href=""><i
 													class="fa fa-user me-1 pe-1"></i>&nbspLogin</a>
 										</li>
-                                        
-										
+
+
 										<li class="nav-item">
 
 											<a class="nav-link " href=""><i
 													class="fa fa-rocket me-1 pe-2"></i>Logout</a>
 										</li>
-                                       
 
 
                                     </ul>
@@ -723,8 +802,8 @@
                     <div class="container-fluid">
                         <div class="head row" style="--bs-gutter-x:3rem !important;  margin-right: calc(-.8 * var(--bs-gutter-x));">
                             <div class="dash main-header">
-                               
-                                <h4>SCRIPT CONVERTER</h4>
+
+                                <h4>SCRIPT MODIFY</h4>
                             </div>
                             </div>
                             <section class="vh-50 gradient-custom ">
@@ -740,33 +819,30 @@
                                                     <form method="get" action="{% url 'replace_variables' %}">
                                                         <div class="" style="text-align: center;">
                                                     <input class="replaces" type="submit" value="Go Back">
-                                                </div> 
+                                                </div>
                                                     </form>
                                                         {% else %}
-                                                    <form method="post" enctype="multipart/form-data">
-                                                                {% csrf_token %}
-                                                    <label for="file">Upload a Text File:</label>
-                                                    <input type="file" name="file" accept=".txt" required style="margin-left: 200px;"><br><br>
-                                                    
-                                                     
-                                                    
-                                                                {% for variable in variables_to_replace %}
-                                                    <label for="{{ variable }}">Enter value for {{ variable }}:</label>
-                                                    <input class="input-field{{ forloop.counter }}" type="text" name="{{ variable }}"><br><br>
-                                                                {% endfor %}
-                                                    
-                                                    <div class="" style="text-align: center;">
-                                                    
-                                                                <input class="replace" type="submit" value="Generate Script">
-                                                            </div> 
-                                                    </form>
+                                                   <form method="post" enctype="multipart/form-data" onsubmit="return validateForm();">
+    {% csrf_token %}
+    <label for="file">Upload a Text File:</label>
+    <input type="file" name="file" accept=".txt" required style="margin-left: 200px;"><br><br>
+
+    {% for variable in variables_to_replace %}
+    <label for="{{ variable }}">Enter value for {{ variable }}:</label>
+    <input class="input-field{{ forloop.counter }}" type="text" name="{{ variable }}" required><br><br>
+    {% endfor %}
+
+    <div class="" style="text-align: center;">
+        <input class="replace" type="submit" id="submitButton" value="Generate Script">
+    </div>
+</form>
                                                         {% endif %}
-                                                    
 
 
 
-                                                
-                                                   
+
+
+
                                                 </div>
                                             </div>
                                         </div>
@@ -787,7 +863,31 @@
         </div>
     </div>
     </div>
-   
+
+    <script>
+    function validateForm() {
+        // Check if all required fields have values
+        var fileInput = document.querySelector('input[type="file"]');
+        var textInputs = document.querySelectorAll('input[type="text"]');
+
+        // Check the file input
+        if (!fileInput.value) {
+            alert("Please select a file.");
+            return false; // Prevent form submission
+        }
+
+        // Check text inputs
+        for (var i = 0; i < textInputs.length; i++) {
+            if (!textInputs[i].value) {
+                alert("Please fill in all required fields.");
+                return false; // Prevent form submission
+            }
+        }
+
+        return true; // Allow form submission
+    }
+</script>
+
 
     <script>
         var $window = $(window);
@@ -819,7 +919,7 @@
             $('#example2').DataTable({
                 dom: '<"top"iflp<"clear">>rt<"bottom"iflp<"clear">>',
             });
-        });   
+        });
 
 
         $(document).ready(function () {
@@ -867,7 +967,7 @@
 
 
 
-     
+
 
 
 
