@@ -68,15 +68,13 @@ def replace_variables(request):
 # ----------------------------------------converter-------------------------------------------
 import os
 from django.conf import settings
-from django.http import FileResponse
-from django.shortcuts import render
-from .your_script import process_and_convert_scripts
+from django.http import FileResponse, HttpResponse
 from django.shortcuts import render
 import shutil
+from .your_script import process_and_convert_scripts
 
 def process_view(request):
-    output_files = []
-    download_links = []  # Initialize download_links here
+    download_links = []
 
     if request.method == 'POST':
         input_folder1 = request.POST.get('input_folder1')
@@ -84,50 +82,79 @@ def process_view(request):
         enter_id1 = request.POST.get('enter_id1')
         enter_id2 = request.POST.get('enter_id2')
 
+        # Call the script to process and convert the scripts
         output_files = process_and_convert_scripts(input_folder1, input_folder2, enter_id1, enter_id2)
 
         # Move the generated files to the "media" directory
         for output_file in output_files:
-            # Construct the destination path in the "media" directory
             destination_path = os.path.join(settings.MEDIA_ROOT, os.path.basename(output_file))
 
-            # Check if the file already exists, and if so, remove it
             if os.path.exists(destination_path):
                 os.remove(destination_path)
 
-            # Move the file to the destination path, overwriting if it already exists
             shutil.move(output_file, destination_path)
-            
-        output_files = process_and_convert_scripts(input_folder1, input_folder2, enter_id1, enter_id2)
-
-        # Move the generated files to the "media" directory
-        for output_file in output_files:
-            # Construct the destination path in the "media" directory
-            destination_path = os.path.join(settings.MEDIA_ROOT, output_file)
-
-            # Move the file to the destination path
-            os.rename(output_file, destination_path)
 
             # Generate the download link for the file
-            download_url = os.path.join(settings.MEDIA_URL, output_file)
-            download_links.append(download_url)   
-            
-            
-
-        # Generate the download links for the files after moving them
-        download_links = [os.path.join(settings.MEDIA_URL, os.path.basename(file)) for file in output_files]
+            download_url = os.path.join(settings.MEDIA_URL, os.path.basename(destination_path))
+            download_links.append(download_url)
 
     return render(request, 'process.html', {'download_links': download_links})
 
-
-
-
 def download_script(request, script_path):
-    # Open the file in binary mode for reading
-    with open(script_path, 'rb') as file:
-        response = FileResponse(file)
-        # Set the Content-Disposition header for attachment
-        response['Content-Disposition'] = f'attachment; filename="{os.path.basename(script_path)}"'
-        return response
-    
-    
+    try:
+        # Open the file in binary mode for reading
+        with open(script_path, 'rb') as file:
+            response = FileResponse(file)
+            response['Content-Disposition'] = f'attachment; filename="{os.path.basename(script_path)}"'
+            return response
+    except FileNotFoundError:
+        return HttpResponse("File not found", status=404)
+
+
+
+# pdfconverter/views.py
+
+
+import subprocess
+from django.http import FileResponse
+from django.conf import settings
+from django.shortcuts import render
+from django.views.decorators.csrf import csrf_exempt
+import os
+
+
+@csrf_exempt
+def upload_pdf(request):
+    if request.method == 'POST' and 'pdf_file' in request.FILES:
+        pdf_file = request.FILES['pdf_file']
+        temp_pdf_path = os.path.join(settings.MEDIA_ROOT, 'temp.pdf')
+
+        # Save the uploaded PDF file to a temporary location
+        with open(temp_pdf_path, 'wb') as temp_pdf:
+            for chunk in pdf_file.chunks():
+                temp_pdf.write(chunk)
+
+        try:
+            # Specify the output Excel file path in your project directory
+            output_excel_path = os.path.join(settings.MEDIA_ROOT, 'output.xlsx')
+
+            # Call pdf2excel.py script with the input PDF file path as a command-line argument
+            subprocess.run(['python', 'pdf2excel.py', temp_pdf_path, output_excel_path], check=True)
+
+            # Provide a download link for the Excel file
+            # Specify the file to be downloaded
+            excel_file = open(os.path.join(settings.MEDIA_ROOT, 'Pushpendra_CIQ.xlsx'), 'rb')
+            response = FileResponse(excel_file, as_attachment=True)
+            return response
+        except subprocess.CalledProcessError as e:
+            error_message = f"Error running pdf2excel.py: {e}"
+            return render(request, 'upload.html', {'error_message': error_message})
+        except FileNotFoundError as e:
+            error_message = f"File not found: {e}"
+            return render(request, 'upload.html', {'error_message': error_message})
+    elif request.method == 'GET':
+        # Handle GET request (display upload form)
+        return render(request, 'upload.html')
+    else:
+        # Handle other HTTP methods as needed
+        return render(request, 'upload.html')
